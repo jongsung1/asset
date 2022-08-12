@@ -10,16 +10,17 @@ before_one_day = now - relativedelta(days=1)        ## 하루 전
 before_one_year = now - relativedelta(years=1)      ## 1년 전
 before_one_month = now - relativedelta(months=1)    ## 1달 전
 
-df_year_SPY = fdr.DataReader('SPY',before_one_year) # 미국 주식(SPY) 12개월 평균 수익률
-YIELD_SPY = (df_year_SPY['Close'][-1] - df_year_SPY['Close'][0])/df_year_SPY['Close'][0]
-time.sleep(1.8)
+def yield_value(ticker="SPY"):
+    df_year = fdr.DataReader(ticker,before_one_year) # 12개월 평균 수익률
+    YIELD_year = (df_year['Close'][-1] - df_year['Close'][0])/df_year['Close'][0]
+    return YIELD_year
 
-df_year_EFA = fdr.DataReader('EFA',before_one_year) # 선진국 주식(EFA) 12개월 평균 수익률
-YIELD_EFA = (df_year_EFA['Close'][-1] - df_year_EFA['Close'][0])/df_year_EFA['Close'][0]
-time.sleep(1.8)
 
-df_year_BIL = fdr.DataReader('BIL',before_one_year) # 초단기채권(BIL) 12개월 평균 수익률
-YIELD_BIL = (df_year_BIL['Close'][-1] - df_year_BIL['Close'][0])/df_year_BIL['Close'][0]
+YIELD_SPY = yield_value("SPY")
+time.sleep(2)
+YIELD_EFA = yield_value("EFA")
+time.sleep(2)
+YIELD_BIL = yield_value("BIL")
 
 print("SPY 수익률 : %s" % (YIELD_SPY))
 print("EFA 수익률 : %s" % (YIELD_EFA))

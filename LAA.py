@@ -42,6 +42,6 @@ print("%s 현재가 : %s" % (UNRATE,UNRATE_DATA[UNRATE_END]))
 
 
 if DIFF_SPY < 0 and DIFF_UNRATE > 0 :
-    print("buy SHY")
+    print("LAA : buy SHY 25%, IWD 25%, IEF 25%, GLD 25%")
 else :
-    print("buy QQQ")
+    print("LAA : buy QQQ 25%, IWD 25%, IEF 25%, GLD 25%")
