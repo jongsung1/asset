@@ -5,25 +5,20 @@
 import pandas as pd     ####    데이터 가공
 import yfinance as yf   ####    야후 파이낸셜
 import etf_list as el   ####    종목 코드 리스트
-from tqdm import tqdm   ####### 진행률 표시 - for문에 사용
 
 K=0.99      #### 상관 계수 조건
-ETF={}      #### 상관 계수 조건 맞는 ETF 담을 딕셔너리
 
-#### 피어슨 상관계수 구하기 
-#### 기준 자산 ticker 인수 전달
-def get_pearson(ticker="SPY"):
-    for list in tqdm(el.ETF_LIST):
-        data = yf.download([ticker,list])
-        data = pd.DataFrame(data['Close'])
-        corr = data.corr(method = 'pearson')
-        #### 상관 계수 조건(K)에 맞으면 ETF 딕셔너리에 저장 ==> 한번에 출력하기 위함
-        if corr[ticker][list] > K :
-            ETF[list] = corr[ticker][list]
-    
-    #### 상관 계수 리스트 출력
-    print("결과 : %s" % (len(ETF)))
-    for key in ETF:
-        print(f"{ticker}와 {key}의 상관 계수 : {ETF[key]}")
+def get_pearson(NORM_TICKER="SPY"):
+    el.ETF_LIST.append(NORM_TICKER)
+    LIST = el.ETF_LIST
+    #### 피어슨 상관계수 구하기 
+    #### 기준 자산 ticker 인수 전달
+    data = yf.download(LIST)
+    data = pd.DataFrame(data['Close'])
+    corr = data.corr(method = 'pearson')
+
+    for list in el.ETF_LIST:
+        if corr[NORM_TICKER][list] > K :
+            print(f"{NORM_TICKER}와 {list}의 상관 계수 : {corr[NORM_TICKER][list]}")
 
 get_pearson("SPY")
