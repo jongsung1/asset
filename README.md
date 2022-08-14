@@ -14,3 +14,7 @@ pip install finance-datareader
 
 # 야후 파이낸셜
 pip install yfinance
+
+# 피어슨 상관계수
+-- -1에서 1범위의 계수로 1에 가까울 수록 상관성이 높고 -1에 가까울 수록 상관성이 낮음
+
